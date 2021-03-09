@@ -12,23 +12,15 @@ function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "m122-autopusher-wettstein" is now active!');
+	console.log('Activated!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('m122-autopusher-wettstein.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from M122_AutoPusher_Wettstein!');
-	});
-
-	context.subscriptions.push(disposable);
 }
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() {
+	vscode.window.showInformationMessage('Works!');
+	console.log('Works!');
+}
 
 module.exports = {
 	activate,
