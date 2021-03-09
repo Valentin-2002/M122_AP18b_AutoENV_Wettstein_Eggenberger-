@@ -18,7 +18,20 @@ function activate(context) {
 
 // this method is called when your extension is deactivated
 function deactivate() {
-	vscode.window.showInformationMessage('Works!');
+	
+	const DIR  = vscode.workspace.workspaceFolders[0].uri.fsPath;
+
+	const fs = require('fs');
+
+	if(vscode.workspace.workspaceFolders !== undefined) {
+
+		if(fs.existsSync(DIR + '/.gitignore')){
+			console.log('The file exists');
+		}
+
+	} 
+	
+
 	console.log('Works!');
 }
 
