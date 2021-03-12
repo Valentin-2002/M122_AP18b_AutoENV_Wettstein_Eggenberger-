@@ -18,31 +18,35 @@ function activate(context) {
 
 // this method is called when your extension is deactivated
 function deactivate() {
+
 	
 	const DIR  = vscode.workspace.workspaceFolders[0].uri.fsPath;
 
 	const { exec } = require('child_process');
-	const fs = require('fs');
+	const fs = require('fs');	
+
+	var stdout1 = 'xvb';
 
 	if(vscode.workspace.workspaceFolders !== undefined) {
 
-		
 		if(fs.existsSync(DIR + '/.gitignore')){
 
 			console.log('.gitignore exists');
 
 			exec('git status', {cwd: DIR}, function(err, stdout, stderr) {
 
-				console.log('stdout: ' + stdout);
+				if(stdout.includes('up to date')) continueExecuting();
 
-			});
+			});	
 			
-		}
+		} 
 
 	} 
 	
+}
 
-	console.log('Works!');
+function continueExecuting() {
+	console.log('yeaa boiiii');
 }
 
 module.exports = {
