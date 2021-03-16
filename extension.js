@@ -14,35 +14,50 @@ function activate(context) {
 	// This line of code will only be executed once when your extension is activated
 	console.log('Activated!');
 
+	const { exec } = require('child_process');
+	const DIR  = vscode.workspace.workspaceFolders[0].uri.fsPath;
+
+	//exec('git push', {cwd: DIR}, function(err, stdout, stderr) {
+
+		//console.log(stdout);
+
+	//});	
+
 }
 
 // this method is called when your extension is deactivated
 function deactivate() {
+
 	
 	const DIR  = vscode.workspace.workspaceFolders[0].uri.fsPath;
 
 	const { exec } = require('child_process');
-	const fs = require('fs');
+	const fs = require('fs');	
 
 	if(vscode.workspace.workspaceFolders !== undefined) {
 
-		
 		if(fs.existsSync(DIR + '/.gitignore')){
 
 			console.log('.gitignore exists');
 
 			exec('git status', {cwd: DIR}, function(err, stdout, stderr) {
 
-				console.log('stdout: ' + stdout);
+				if(!stdout.includes('up to date')) continueExecuting(DIR, exec);
 
-			});
+			});	
 			
-		}
+		} 
 
 	} 
 	
+}
 
-	console.log('Works!');
+function continueExecuting(DIR, exec) {
+	exec('git push', {cwd: DIR}, function(err, stdout, stderr) {
+
+		console.log(stdout);
+
+	});	
 }
 
 module.exports = {
